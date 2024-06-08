@@ -66,6 +66,14 @@ async function run() {
       res.send(result);
     })
 
+    // get discounted medicine data 
+    app.get('/medicines/:discount', async (req, res) => {
+      const discount = req.params.title;
+      const query = { discount }
+      const result = await MedicineCollection.find(query).toArray();
+      res.send(result)
+    })
+
 
 
 
