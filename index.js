@@ -52,11 +52,19 @@ async function run() {
     // const bidsCollection = client.db('tomomoni').collection('bids')
 
 
-    // Get all jobs data from db
+    // Get all medicine data from db
     app.get('/medicines', async (req, res) => {
       const result = await MedicineCollection.find().toArray();
       res.send(result);
     });
+
+    // Get single medicine data from db
+    app.get('/medicines/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await MedicineCollection.findOne(query);
+      res.send(result);
+    })
 
 
 
