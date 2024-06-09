@@ -48,31 +48,24 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
 
-    const MedicineCollection = client.db('Ousodh_Chai').collection('Medicines')
+    const discountedMedicinesCollection = client.db('Ousodh_Chai').collection('discountedMedicines')
     // const bidsCollection = client.db('tomomoni').collection('bids')
 
 
     // Get all medicine data from db
-    app.get('/medicines', async (req, res) => {
-      const result = await MedicineCollection.find().toArray();
+    app.get('/discountedMedicines', async (req, res) => {
+      const result = await discountedMedicinesCollection.find().toArray();
       res.send(result);
     });
 
     // Get single medicine data from db
-    app.get('/medicines/:id', async (req, res) => {
+    app.get('/discountedMedicines/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
-      const result = await MedicineCollection.findOne(query);
+      const result = await discountedMedicinesCollection.findOne(query);
       res.send(result);
     })
 
-    // get discounted medicine data 
-    app.get('/medicines/:discount', async (req, res) => {
-      const discount = req.params.title;
-      const query = { discount }
-      const result = await MedicineCollection.find(query).toArray();
-      res.send(result)
-    })
 
 
 
@@ -84,19 +77,19 @@ async function run() {
 
 
     // auth related api
-    app.post('/jwt', async (req, res) => {
-      const user = req.body
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: '365d',
-      })
-      res
-        .cookie('token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-        })
-        .send({ success: true })
-    })
+    // app.post('/jwt', async (req, res) => {
+    //   const user = req.body
+    //   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    //     expiresIn: '365d',
+    //   })
+    //   res
+    //     .cookie('token', token, {
+    //       httpOnly: true,
+    //       secure: process.env.NODE_ENV === 'production',
+    //       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+    //     })
+    //     .send({ success: true })
+    // })
     // Logout
     app.get('/logout', async (req, res) => {
       try {
