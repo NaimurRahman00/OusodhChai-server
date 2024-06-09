@@ -48,13 +48,19 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
 
-    const discountedMedicinesCollection = client.db('Ousodh_Chai').collection('discountedMedicines')
-    // const bidsCollection = client.db('tomomoni').collection('bids')
+    const discountedMedicinesCollection = client.db('Ousodh_Chai').collection('discountedMedicines');
+    const trendingMedicinesCollection = client.db('Ousodh_Chai').collection('TrendingMedicines');
 
 
-    // Get all medicine data from db
+    // Get discounted medicine data from db
     app.get('/discountedMedicines', async (req, res) => {
       const result = await discountedMedicinesCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get all trending medicines data
+    app.get('/trendingMedicines', async (req, res) => {
+      const result = await trendingMedicinesCollection.find().toArray();
       res.send(result);
     });
 
