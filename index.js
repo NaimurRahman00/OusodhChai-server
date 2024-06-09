@@ -50,6 +50,7 @@ async function run() {
 
     const discountedMedicinesCollection = client.db('Ousodh_Chai').collection('discountedMedicines');
     const trendingMedicinesCollection = client.db('Ousodh_Chai').collection('TrendingMedicines');
+    const babyFoodCollection = client.db('Ousodh_Chai').collection('babyFood');
 
 
     // Get discounted medicine data from db
@@ -61,6 +62,12 @@ async function run() {
     // get all trending medicines data
     app.get('/trendingMedicines', async (req, res) => {
       const result = await trendingMedicinesCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get all baby food data
+    app.get('/babyFood', async (req, res) => {
+      const result = await babyFoodCollection.find().toArray();
       res.send(result);
     });
 
