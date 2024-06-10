@@ -95,6 +95,13 @@ async function run() {
       res.send(result);
     })
 
+    // Get category based data from db
+    app.get('/category/:category', async (req, res) => {
+      const category = req.params.category;
+      const result = await CategoryCollection.find({category}).toArray();
+      res.send(result);
+    })
+
 
 
 
