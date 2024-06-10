@@ -52,6 +52,9 @@ async function run() {
     const trendingMedicinesCollection = client.db('Ousodh_Chai').collection('TrendingMedicines');
     const babyFoodCollection = client.db('Ousodh_Chai').collection('babyFood');
     const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
+    const CategoryCollection = client.db('Ousodh_Chai').collection('category_section');
+
+
 
 
     // Get discounted medicine data from db
@@ -75,6 +78,12 @@ async function run() {
     // get advertise slider data
     app.get('/advertise', async (req, res) => {
       const result = await advertiseCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get all category section data
+    app.get('/category', async (req, res) => {
+      const result = await CategoryCollection.find().toArray();
       res.send(result);
     });
 
