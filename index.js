@@ -100,6 +100,12 @@ async function run() {
       res.send(result);
     });
 
+    // get cart data
+    app.get('/cart', async (req, res) => {
+      const result = await cartCollection.find().toArray();
+      res.send(result);
+    });
+
     // Get single medicine data from db
     app.get('/discountedMedicines/:id', async (req, res) => {
       const id = req.params.id;
@@ -129,6 +135,12 @@ async function run() {
       res.send(result);
     })
 
+    // add to cart using post method
+    app.post('/cart', async (req, res) => {
+      const addToCart = req.body;
+      const result = await cartCollection.insertOne(addToCart);
+      res.send(result)
+    })
 
 
 
