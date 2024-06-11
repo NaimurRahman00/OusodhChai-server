@@ -53,6 +53,8 @@ async function run() {
     const babyFoodCollection = client.db('Ousodh_Chai').collection('babyFood');
     const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
     const CategoryCollection = client.db('Ousodh_Chai').collection('category_section');
+    const cartCollection = client.db('Ousodh_Chai').collection('cart');
+
 
     // Get all of data 
     app.get('/allData', async (req, res) => {
@@ -112,6 +114,13 @@ async function run() {
       const result = await trendingMedicinesCollection.findOne(query);
       res.send(result);
     })
+    // Get single baby food data from db
+    app.get('/babyFood/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await babyFoodCollection.findOne(query);
+      res.send(result);
+    })
 
     // Get category based data from db
     app.get('/category/:category', async (req, res) => {
@@ -119,6 +128,7 @@ async function run() {
       const result = await CategoryCollection.find({ category }).toArray();
       res.send(result);
     })
+
 
 
 
