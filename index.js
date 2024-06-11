@@ -62,9 +62,9 @@ async function run() {
       const data4 = await advertiseCollection.find().toArray();
       const data5 = await CategoryCollection.find().toArray();
 
-      const result = {
+      const result = [
         data1, data2, data3, data4, data5
-      }
+      ]
       res.send(result)
     })
 
@@ -105,11 +105,18 @@ async function run() {
       const result = await discountedMedicinesCollection.findOne(query);
       res.send(result);
     })
+    // Get single trending medicine data from db
+    app.get('/trendingMedicines/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await trendingMedicinesCollection.findOne(query);
+      res.send(result);
+    })
 
     // Get category based data from db
     app.get('/category/:category', async (req, res) => {
       const category = req.params.category;
-      const result = await CategoryCollection.find({category}).toArray();
+      const result = await CategoryCollection.find({ category }).toArray();
       res.send(result);
     })
 
