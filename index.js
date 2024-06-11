@@ -54,8 +54,19 @@ async function run() {
     const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
     const CategoryCollection = client.db('Ousodh_Chai').collection('category_section');
 
+    // Get all of data 
+    app.get('/allData', async (req, res) => {
+      const data1 = await discountedMedicinesCollection.find().toArray();
+      const data2 = await trendingMedicinesCollection.find().toArray();
+      const data3 = await babyFoodCollection.find().toArray();
+      const data4 = await advertiseCollection.find().toArray();
+      const data5 = await CategoryCollection.find().toArray();
 
-
+      const result = {
+        data1, data2, data3, data4, data5
+      }
+      res.send(result)
+    })
 
     // Get discounted medicine data from db
     app.get('/discountedMedicines', async (req, res) => {
