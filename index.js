@@ -10,7 +10,7 @@ const port = process.env.PORT || 8000
 
 // middleware
 const corsOptions = {
-  origin: ['http://localhost:5173','http://localhost:8000', 'https://oushodh-chai.web.app'],
+  origin: ['http://localhost:5173', 'http://localhost:8000', 'https://oushodh-chai.web.app'],
   credentials: true,
   optionSuccessStatus: 200,
 }
@@ -107,6 +107,12 @@ async function run() {
       res.send(result);
     });
 
+    // get users from db
+    app.get('/users', async (req, res) => {
+      const result = await userCollection.find().toArray();
+      res.send(result);
+    })
+
     // Get single medicine data from db
     app.get('/discountedMedicines/:id', async (req, res) => {
       const id = req.params.id;
@@ -136,6 +142,13 @@ async function run() {
       res.send(result);
     })
 
+    // get single user based on email
+    app.get('/users/:email', async (req, res) => {
+      const email = req.params.email;
+      const result = await userCollection.find({ email }).toArray();
+      res.send(result)
+    })
+
     // add to cart using post method
     app.post('/cart', async (req, res) => {
       const addToCart = req.body;
@@ -146,10 +159,10 @@ async function run() {
     // add user using post method
     app.post('/users', async (req, res) => {
       const user = req.body;
-      const query = { email: user.email}
+      const query = { email: user.email }
       const existingUser = await userCollection.findOne(query)
       if (existingUser) {
-        return res.send({message: 'User already exist', insertedId: null})
+        return res.send({ message: 'User already exist', insertedId: null })
       }
       const result = await userCollection.insertOne(user)
       res.send(result)
