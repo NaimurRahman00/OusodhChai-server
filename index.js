@@ -181,6 +181,18 @@ async function run() {
       res.send('All data deleted');
     });
 
+    // Update user role 
+    app.patch('/users/update/:email', async (req, res) => {
+      const email = req.params.email;
+      const user = req.body;
+      const query = { email }
+      const updateDoc = {
+        $set: { ...user }
+      }
+      const result = await userCollection.updateOne(query, updateDoc)
+      res.send(result)
+    })
+
 
 
 
