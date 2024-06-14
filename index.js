@@ -62,11 +62,10 @@ async function run() {
       const data1 = await discountedMedicinesCollection.find().toArray();
       const data2 = await trendingMedicinesCollection.find().toArray();
       const data3 = await babyFoodCollection.find().toArray();
-      const data4 = await advertiseCollection.find().toArray();
-      const data5 = await CategoryCollection.find().toArray();
+      const data4 = await CategoryCollection.find().toArray();
 
       const result = [
-        data1, data2, data3, data4, data5
+        data1, data2, data3, data4
       ]
       res.send(result)
     })
@@ -77,11 +76,10 @@ async function run() {
       const data1 = await discountedMedicinesCollection.find({ category }).toArray();
       const data2 = await trendingMedicinesCollection.find({ category }).toArray();
       const data3 = await babyFoodCollection.find({ category }).toArray();
-      const data4 = await advertiseCollection.find({ category }).toArray();
-      const data5 = await CategoryCollection.find({ category }).toArray();
+      const data4 = await CategoryCollection.find({ category }).toArray();
 
       const result = [
-        data1, data2, data3, data4, data5
+        data1, data2, data3, data4
       ]
       res.send(result)
     })
