@@ -55,6 +55,7 @@ async function run() {
     const CategoryCollection = client.db('Ousodh_Chai').collection('category_section');
     const cartCollection = client.db('Ousodh_Chai').collection('cart');
     const userCollection = client.db('Ousodh_Chai').collection('users');
+    const category2Collection = client.db('Ousodh_Chai').collection('category');
 
 
     // Get all of data 
@@ -70,7 +71,7 @@ async function run() {
       res.send(result)
     })
 
-    // get all category collection
+    // get all data category collection
     app.get('/allData/:category', async (req, res) => {
       const category = req.params.category;
       const data1 = await discountedMedicinesCollection.find({ category }).toArray();
@@ -111,6 +112,12 @@ async function run() {
     // get all category section data
     app.get('/category', async (req, res) => {
       const result = await CategoryCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get category 2 list section data
+    app.get('/categories', async (req, res) => {
+      const result = await category2Collection.find().toArray();
       res.send(result);
     });
 
