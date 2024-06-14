@@ -71,6 +71,21 @@ async function run() {
       res.send(result)
     })
 
+    // get all category collection
+    app.get('/allData/:category', async (req, res) => {
+      const category = req.params.category;
+      const data1 = await discountedMedicinesCollection.find({ category }).toArray();
+      const data2 = await trendingMedicinesCollection.find({ category }).toArray();
+      const data3 = await babyFoodCollection.find({ category }).toArray();
+      const data4 = await advertiseCollection.find({ category }).toArray();
+      const data5 = await CategoryCollection.find({ category }).toArray();
+
+      const result = [
+        data1, data2, data3, data4, data5
+      ]
+      res.send(result)
+    })
+
     // Get discounted medicine data from db
     app.get('/discountedMedicines', async (req, res) => {
       const result = await discountedMedicinesCollection.find().toArray();
