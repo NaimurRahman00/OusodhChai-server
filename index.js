@@ -221,6 +221,22 @@ async function run() {
       res.send(result)
     })
 
+    // Update user role 
+    app.patch('/categories/:id', async (req, res) => {
+      const id = req.params.id;
+      const updateCategoryData = req.body;
+      const query = { _id: new ObjectId(id) }
+      const options = { upsert: true }
+      const updateDoc = {
+          $set: {
+              ...updateCategoryData
+          }
+      }
+      const result = await category2Collection.updateOne(query, updateDoc, options)
+      res.send(result);
+    })
+
+
 
 
 
