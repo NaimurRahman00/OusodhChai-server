@@ -110,6 +110,14 @@ async function run() {
       res.send(result);
     });
 
+    // Get single advertise data from db
+    app.get('/advertise/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await advertiseCollection.findOne(query);
+      res.send(result);
+    })
+
     // get all category section data
     app.get('/category', async (req, res) => {
       const result = await CategoryCollection.find().toArray();
