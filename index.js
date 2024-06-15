@@ -121,6 +121,14 @@ async function run() {
       res.send(result);
     });
 
+    // Get single category 2 data from db
+    app.get('/categories/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await category2Collection.findOne(query);
+      res.send(result);
+    })
+
     // get cart data
     app.get('/cart', async (req, res) => {
       const result = await cartCollection.find().toArray();
