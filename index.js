@@ -51,11 +51,12 @@ async function run() {
     const discountedMedicinesCollection = client.db('Ousodh_Chai').collection('discountedMedicines');
     const trendingMedicinesCollection = client.db('Ousodh_Chai').collection('TrendingMedicines');
     const babyFoodCollection = client.db('Ousodh_Chai').collection('babyFood');
-    const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
     const CategoryCollection = client.db('Ousodh_Chai').collection('category_section');
     const cartCollection = client.db('Ousodh_Chai').collection('cart');
     const userCollection = client.db('Ousodh_Chai').collection('users');
     const category2Collection = client.db('Ousodh_Chai').collection('category');
+    const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
+    const sliderCollection = client.db('Ousodh_Chai').collection('sliderCollection');
 
 
     // Get all of data 
@@ -141,6 +142,12 @@ async function run() {
       res.send(result);
     })
 
+    // get users from db
+    app.get('/slider', async (req, res) => {
+      const result = await sliderCollection.find().toArray();
+      res.send(result);
+    })
+
     // Get single medicine data from db
     app.get('/discountedMedicines/:id', async (req, res) => {
       const id = req.params.id;
@@ -196,10 +203,17 @@ async function run() {
       res.send(result)
     })
 
-    // Save job data to database collection
+    // post categories data to database collection
     app.post('/categories', async (req, res) => {
       const addCategory = req.body;
       const result = await category2Collection.insertOne(addCategory);
+      res.send(result)
+    })
+
+    // admin approve advertise data to database collection
+    app.post('/slider', async (req, res) => {
+      const addSlide = req.body;
+      const result = await sliderCollection.insertOne(addSlide);
       res.send(result)
     })
 
