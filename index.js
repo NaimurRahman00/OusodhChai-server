@@ -228,11 +228,19 @@ async function run() {
       const query = { _id: new ObjectId(id) }
       const options = { upsert: true }
       const updateDoc = {
-          $set: {
-              ...updateCategoryData
-          }
+        $set: {
+          ...updateCategoryData
+        }
       }
       const result = await category2Collection.updateOne(query, updateDoc, options)
+      res.send(result);
+    })
+
+    // Delete single category data
+    app.delete('/categories/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await category2Collection.deleteOne(query)
       res.send(result);
     })
 
