@@ -196,6 +196,13 @@ async function run() {
       res.send(result)
     })
 
+    // Save job data to database collection
+    app.post('/categories', async (req, res) => {
+      const addCategory = req.body;
+      const result = await category2Collection.insertOne(addCategory);
+      res.send(result)
+    })
+
     // Delete single cart data from db
     app.delete('/cart/:id', async (req, res) => {
       const id = req.params.id;
@@ -208,6 +215,14 @@ async function run() {
       await db.cartCollection.deleteMany({})
       res.send('All data deleted');
     });
+
+    // Delete single category data
+    app.delete('/categories/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await category2Collection.deleteOne(query)
+      res.send(result);
+    })
 
     // Update user role 
     app.patch('/users/update/:email', async (req, res) => {
@@ -236,13 +251,6 @@ async function run() {
       res.send(result);
     })
 
-    // Delete single category data
-    app.delete('/categories/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) }
-      const result = await category2Collection.deleteOne(query)
-      res.send(result);
-    })
 
 
 
