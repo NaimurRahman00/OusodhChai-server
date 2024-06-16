@@ -207,6 +207,13 @@ async function run() {
       res.send(result)
     })
 
+    // add a new product using post method
+    app.post('/discountedMedicines', async (req, res) => {
+      const addProduct = req.body;
+      const result = await discountedMedicinesCollection.insertOne(addProduct);
+      res.send(result)
+    })
+
     // add user using post method
     app.post('/users', async (req, res) => {
       const user = req.body;
