@@ -156,6 +156,14 @@ async function run() {
       res.send(result);
     })
 
+    // Get single slider data
+    app.get('/slider/:medicine_name', async (req, res) => {
+      const medicine_name = req.params.medicine_name;
+      const query = { medicine_name }
+      const result = await sliderCollection.findOne(query);
+      res.send(result);
+    })
+
     // Get single medicine data from db
     app.get('/discountedMedicines/:id', async (req, res) => {
       const id = req.params.id;
@@ -243,6 +251,14 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
       const result = await category2Collection.deleteOne(query)
+      res.send(result);
+    })
+
+    // Delete slider data
+    app.delete('/slider/:medicine_name', async (req, res) => {
+      const medicine_name = req.params.medicine_name;
+      const query = { medicine_name }
+      const result = await sliderCollection.deleteOne(query)
       res.send(result);
     })
 
