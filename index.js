@@ -209,8 +209,8 @@ async function run() {
 
     // add a new product using post method
     app.post('/discountedMedicines', async (req, res) => {
-      const addProduct = req.body;
-      const result = await discountedMedicinesCollection.insertOne(addProduct);
+      const formData = req.body;
+      const result = await discountedMedicinesCollection.insertOne(formData);
       res.send(result)
     })
 
@@ -237,6 +237,13 @@ async function run() {
     app.post('/slider', async (req, res) => {
       const addSlide = req.body;
       const result = await sliderCollection.insertOne(addSlide);
+      res.send(result)
+    })
+
+    // seller request advertise database collection
+    app.post('/advertise', async (req, res) => {
+      const ReqBannerAd = req.body;
+      const result = await advertiseCollection.insertOne(ReqBannerAd);
       res.send(result)
     })
 
