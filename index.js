@@ -254,6 +254,13 @@ async function run() {
       res.send(result)
     })
 
+    // seller request advertise database collection
+    app.post('/ordered', async (req, res) => {
+      const newOrder = req.body;
+      const result = await orderedCollection.insertOne(newOrder);
+      res.send(result)
+    })
+
     // Delete single cart data from db
     app.delete('/cart/:id', async (req, res) => {
       const id = req.params.id;
