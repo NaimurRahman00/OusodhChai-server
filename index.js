@@ -57,6 +57,7 @@ async function run() {
     const category2Collection = client.db('Ousodh_Chai').collection('category');
     const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
     const sliderCollection = client.db('Ousodh_Chai').collection('sliderCollection');
+    const orderedCollection = client.db('Ousodh_Chai').collection('order');
 
 
     // Get all of data 
@@ -153,6 +154,12 @@ async function run() {
     // get users from db
     app.get('/slider', async (req, res) => {
       const result = await sliderCollection.find().toArray();
+      res.send(result);
+    })
+
+    // get ordered data from db
+    app.get('/ordered', async (req, res) => {
+      const result = await orderedCollection.find().toArray();
       res.send(result);
     })
 
