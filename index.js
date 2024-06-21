@@ -269,9 +269,15 @@ async function run() {
       res.send(result);
     })
 
-    app.delete('/cart/deleteAll', async (req, res) => {
-      await db.cartCollection.deleteMany({})
-      res.send('All data deleted');
+    // Delete all cart data
+    app.delete('/cart', async (req, res) => {
+      try {
+        await cartCollection.deleteMany({});
+        res.send('All cart data deleted');
+      } catch (err) {
+        console.error('Failed to delete cart items', err);
+        res.status(500).send('Failed to delete cart items');
+      }
     });
 
     // Delete single category data
