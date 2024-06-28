@@ -10,7 +10,7 @@ const port = process.env.PORT || 8000
 
 // middleware
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:8000', 'https://oushodh-chai.web.app'],
+  origin: ['http://localhost:5173', 'http://localhost:8000', 'https://oushodh-chai.web.app', 'https://ousodh-chai.netlify.app'],
   credentials: true,
   optionSuccessStatus: 200,
 }
@@ -58,6 +58,7 @@ async function run() {
     const advertiseCollection = client.db('Ousodh_Chai').collection('advertise');
     const sliderCollection = client.db('Ousodh_Chai').collection('sliderCollection');
     const orderedCollection = client.db('Ousodh_Chai').collection('order');
+    const paymentCollection = client.db('Ousodh_Chai').collection('payment');
 
 
     // Get all of data 
@@ -259,6 +260,12 @@ async function run() {
       const newOrder = req.body;
       const result = await orderedCollection.insertOne(newOrder);
       res.send(result)
+    })
+
+    // payment post database collection
+    app.post('/create-payment', async (req, res) => {
+      const paymentInfo = req.body;
+      res.send(result);
     })
 
     // Delete single cart data from db
